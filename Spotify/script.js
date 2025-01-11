@@ -1,42 +1,49 @@
 let songIndex=0;
-let audioElement=new Audio('1.mp3');
+let audioElement=new Audio('./songs/1.mp3');
 let masterPlay=document.getElementById('masterPlay');
 let myProgressBar=document.getElementById('myProgressBar');
 
 let gif=document.getElementById('gif');
 
+let songItems=Array.from(document.getElementsByClassName('songItem'));
+
 let songs=[
     {
         songName: "Salam-e-ishq", 
-        filepath: "./1.mp3", 
-        coverPath: "./1.jpg"
+        filepath: "./songs/1.mp3", 
+        coverPath: "./covers/1.jpg"
     },
     {
-        songName: "Salam-e-ishq", 
-        filepath: "./1.mp3", 
-        coverPath: "./1.jpg"
+        songName: "Amplifier", 
+        filepath: "./songs/2.mp3", 
+        coverPath: "./covers/2.jpg"
     },
     {
-        songName: "Salam-e-ishq", 
-        filepath: "./1.mp3", 
-        coverPath: "./1.jpg"
+        songName: "Criminal", 
+        filepath: "./songs/3.mp3", 
+        coverPath: "./covers/3.jpg"
     },
     {
-        songName: "Salam-e-ishq", 
-        filepath: "./1.mp3", 
-        coverPath: "./1.jpg"
+        songName: "Espresso", 
+        filepath: "./songs/4.mp3", 
+        coverPath: "./covers/4.jpg"
     },
     {
-        songName: "Salam-e-ishq", 
-        filepath: "./1.mp3", 
-        coverPath: "./1.jpg"
+        songName: "Jeene Laga Hoon", 
+        filepath: "./songs/5.mp3", 
+        coverPath: "./covers/5.jpg"
     },
     {
-        songName: "Salam-e-ishq", 
-        filepath: "./1.mp3", 
-        coverPath: "./1.jpg"
+        songName: "Tum Hi Ho", 
+        filepath: "./songs/6.mp3", 
+        coverPath: "./covers/6.jpg"
     }
 ]
+songItems.forEach((element,i) => {
+    console.log(element,i);
+    element.getElementsByTagName("img")[0].src=songs[i].coverPath;
+    element.getElementsByClassName("songName")[0].innerText=songs[i].songName;
+});
 
 audioElement.play();
 
