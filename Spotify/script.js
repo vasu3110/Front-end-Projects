@@ -7,6 +7,8 @@ let gif=document.getElementById('gif');
 
 let songItems=Array.from(document.getElementsByClassName('songItem'));
 
+let masterSongName=document.getElementById('masterSongName');
+
 let songs=[
     {
         songName: "Salam-e-ishq", 
@@ -53,6 +55,7 @@ masterPlay.addEventListener('click',()=>{
         audioElement.play();
         masterPlay.classList.remove('fa-circle-play');
         masterPlay.classList.add('fa-pause-circle');
+        
         gif.style.opacity=1;
     }
     else{
@@ -81,16 +84,56 @@ const makeAllPlays=()=>{
 }
 Array.from(document.getElementsByClassName('songItemPlay')).forEach((el)=>{
     el.addEventListener('click',(e)=>{
-        console.log(e.target);
-        makeAllPlays();
-        index=parseInt(e.target.id);
-        e.target.classList.remove('fa-circle-play');
-        e.target.classList.add('fa-circle-pause')
-        audioElement.src=`songs/${index+1}.mp3`;
-        audioElement.currentTime=0;
-        audioElement.play();
-        console.log(el.id);
-        masterPlay.classList.remove('fa-circle-play');
-        masterPlay.classList.add('fa-circle-pause');
+        let songIndex=parseInt(e.target.id);
+        if(e.target.classList.contains('fa-circle-play')){
+            makeAllPlays();
+            e.target.classList.remove('fa-circle-play');
+            e.target.classList.add('fa-circle-pause');
+            gif.style.opacity=1;
+            audioElement.src=`songs/${songIndex+1}.mp3`;
+            audioElement.currentTime=0;
+            audioElement.play();
+            masterPlay.classList.remove('fa-circle-play');
+            masterPlay.classList.add('fa-circle-pause');
+            masterSongName.innerText=songs[songIndex].songName;
+        }
+        else{
+            e.target.classList.remove('fa-circle-pause');
+            e.target.classList.add('fa-circle-play');
+            audioElement.pause();
+            masterPlay.classList.remove('fa-circle-pause');
+            masterPlay.classList.add('fa-circle-play');
+            gif.style.opacity=0;
+        }
+        
     })
+})
+
+document.getElementById('previous').addEventListener('click',()=>{
+    songIndex-=1;
+    if(songIndex<0){
+        songIndex=songs.length-1;
+    }
+    masterSongName.innerText=songs[songIndex].songName;
+    gif.style.opacity=1;
+    audioElement.src=`songs/${songIndex+1}.mp3`;
+    audioElement.currentTime=0;
+    audioElement.play();
+    masterPlay.classList.remove('fa-circle-play');
+    masterPlay.classList.add('fa-circle-pause');
+
+})
+
+document.getElementById('next').addEventListener('click',()=>{
+    songIndex+=1;
+    if(songIndex>5){
+        songIndex=0;
+    }
+    masterSongName.innerText=songs[songIndex].songName;
+    gif.style.opacity=1;
+    audioElement.src=`songs/${songIndex+1}.mp3`;
+    audioElement.currentTime=0;
+    audioElement.play();
+    masterPlay.classList.remove('fa-circle-play');
+    masterPlay.classList.add('fa-circle-pause');
 })
